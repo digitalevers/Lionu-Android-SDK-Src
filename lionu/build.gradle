@@ -25,12 +25,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-<<<<<<< HEAD
-    namespace 'com.android.reportx'
-
-=======
->>>>>>> a9aeb00d73d898584fc7c216c30de9ba709f6d2e
-
 }
 
 dependencies {
