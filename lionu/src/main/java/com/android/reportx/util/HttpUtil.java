@@ -81,7 +81,6 @@ class HttpUtil {
             deviceInfo.put("ip", DeviceUtil.getIPAddress(context));         //md5 哈希值
 
             params.put("deviceInfo", deviceInfo);
-            uri = "https://cn.bing.com/";
             if (RP.debug) {
                 Log.i("RP===>", uri);
                 Log.i("RP===>", params.toString());
