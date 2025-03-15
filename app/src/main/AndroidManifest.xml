@@ -29,7 +29,7 @@
         <provider
             android:name="com.digitalevers.lionukt.util.ApplicationProvider"
             android:authorities="${applicationId}.contextprovider"
-            android:exported="false" />
+            android:exported="true" />
     </application>
 
 </manifest>

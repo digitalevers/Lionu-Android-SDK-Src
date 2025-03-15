@@ -52,7 +52,7 @@ public class EncryptUtils {
      * @param secretKey 密钥
      * @return Base64编码的密钥字符串
      */
-    public static String encodeKey(SecretKey secretKey) {
+    public static String secretKeyToBase64(SecretKey secretKey) {
         return Base64.encodeToString(secretKey.getEncoded(), Base64.DEFAULT);
     }
 
@@ -61,7 +61,7 @@ public class EncryptUtils {
      * @param encodedKey Base64编码的密钥字符串
      * @return 密钥
      */
-    public static SecretKey decodeKey(String encodedKey) {
+    public static SecretKey base64ToSecretKey(String encodedKey) {
         byte[] decodedKey = Base64.decode(encodedKey, Base64.DEFAULT);
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, ALGORITHM);
     }

@@ -50,7 +50,7 @@ class HttpUtil {
         }
     };
 
-    public static void postUsage(Context context, String uri, float amount) {
+    public static void postUsage(Context context, String uri, float amount, String base64Secretkey) {
         if (context == null) {
             return;
         }
@@ -88,9 +88,15 @@ class HttpUtil {
                 Log.i("RP===>", params.toString());
             }
             //json进行AES加密
-            SecretKey secretKey = EncryptUtils.generateKey();
-            String encryptedData = EncryptUtils.encrypt(params.toString(), secretKey);
-            post(uri, encryptedData);
+            //SecretKey secretKey = EncryptUtils.generateKey();
+            //Log.i("RP===>", EncryptUtils.secretKeyToBase64(secretKey));
+            if(base64Secretkey == null || base64Secretkey.isEmpty()){
+                post(uri, params.toString());
+            } else {
+                SecretKey secretKey = EncryptUtils.base64ToSecretKey(base64Secretkey);
+                String encryptedData = EncryptUtils.encrypt(params.toString(), secretKey);
+                post(uri, encryptedData);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
