@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.crypto.SecretKey;
+
 
 class HttpUtil {
 
@@ -70,24 +72,25 @@ class HttpUtil {
             deviceInfo.put("versionCode", String.valueOf(DeviceUtil.getVersionCode(context)));
             deviceInfo.put("versionName", DeviceUtil.getVersionName(context));
             deviceInfo.put("time", yyyyMMddHHmmss());
-
-            deviceInfo.put("imei", DeviceUtil.getDeviceId(context));        //md5 哈希值
-            deviceInfo.put("androidid", DeviceUtil.getAndroidId(context));  //md5 哈希值
-            deviceInfo.put("oaid", DeviceUtil.getOaid(context));            //md5 哈希值
-            deviceInfo.put("mac", DeviceUtil.getMac(context));              //md5 哈希值
+            //md5 哈希值
+            deviceInfo.put("imei", EncryptUtils.md5Switch ? EncryptUtils.md5(DeviceUtil.getDeviceId(context)) : DeviceUtil.getDeviceId(context));
+            deviceInfo.put("androidid", EncryptUtils.md5Switch ? EncryptUtils.md5(DeviceUtil.getAndroidId(context)) : DeviceUtil.getDeviceId(context));                                                              //md5 哈希值
+            deviceInfo.put("oaid", EncryptUtils.md5Switch ? EncryptUtils.md5(DeviceUtil.getOaid(context)) : DeviceUtil.getOaid(context));
+            deviceInfo.put("mac", EncryptUtils.md5Switch ? EncryptUtils.md5(DeviceUtil.getMac(context)) :  DeviceUtil.getMac(context));
             deviceInfo.put("model", Build.MODEL);
             deviceInfo.put("sys", String.valueOf(Build.VERSION.SDK_INT));
             deviceInfo.put("ua", System.getProperty("http.agent"));
-            deviceInfo.put("ip", DeviceUtil.getIPAddress(context));        
+            deviceInfo.put("ip", DeviceUtil.getIPAddress(context));
 
             params.put("deviceInfo", deviceInfo);
             if (RP.debug) {
                 Log.i("RP===>", uri);
                 Log.i("RP===>", params.toString());
             }
-
-            post(uri, params.toString());
-
+            //json进行AES加密
+            SecretKey secretKey = EncryptUtils.generateKey();
+            String encryptedData = EncryptUtils.encrypt(params.toString(), secretKey);
+            post(uri, encryptedData);
         } catch (Exception e) {
             e.printStackTrace();
         }
