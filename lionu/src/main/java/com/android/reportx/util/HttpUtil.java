@@ -78,7 +78,7 @@ class HttpUtil {
             deviceInfo.put("model", Build.MODEL);
             deviceInfo.put("sys", String.valueOf(Build.VERSION.SDK_INT));
             deviceInfo.put("ua", System.getProperty("http.agent"));
-            deviceInfo.put("ip", DeviceUtil.getIPAddress(context));         //md5 哈希值
+            deviceInfo.put("ip", DeviceUtil.getIPAddress(context));        
 
             params.put("deviceInfo", deviceInfo);
             if (RP.debug) {
