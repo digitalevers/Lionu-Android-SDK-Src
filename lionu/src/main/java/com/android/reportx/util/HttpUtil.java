@@ -95,6 +95,8 @@ class HttpUtil {
             } else {
                 SecretKey secretKey = EncryptUtils.base64ToSecretKey(base64Secretkey);
                 String encryptedData = EncryptUtils.encrypt(params.toString(), secretKey);
+                //Log.i("RP===>", EncryptUtils.secretKeyToBase64(secretKey));
+
                 post(uri, encryptedData);
             }
         } catch (Exception e) {
