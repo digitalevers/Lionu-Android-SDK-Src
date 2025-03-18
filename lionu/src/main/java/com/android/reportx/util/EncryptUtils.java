@@ -4,10 +4,12 @@ import android.os.Build;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 import android.util.Base64;
 
 public class EncryptUtils {
@@ -16,6 +18,7 @@ public class EncryptUtils {
     //AES算法相关
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/ECB/PKCS5Padding";
+
     public static String md5(String input) {
         try {
             // 获取MD5实例
@@ -38,6 +41,7 @@ public class EncryptUtils {
 
     /**
      * 生成一个随机的AES密钥
+     *
      * @return 生成的密钥
      * @throws Exception 如果生成密钥失败
      */
@@ -49,6 +53,7 @@ public class EncryptUtils {
 
     /**
      * 将密钥转换为Base64编码的字符串
+     *
      * @param secretKey 密钥
      * @return Base64编码的密钥字符串
      */
@@ -58,6 +63,7 @@ public class EncryptUtils {
 
     /**
      * 将Base64编码的字符串转换为密钥
+     *
      * @param encodedKey Base64编码的密钥字符串
      * @return 密钥
      */
@@ -68,7 +74,8 @@ public class EncryptUtils {
 
     /**
      * 使用AES加密字符串
-     * @param data 要加密的数据
+     *
+     * @param data      要加密的数据
      * @param secretKey 密钥
      * @return 加密后的Base64编码字符串
      * @throws Exception 如果加密失败
@@ -82,8 +89,9 @@ public class EncryptUtils {
 
     /**
      * 使用AES解密字符串
+     *
      * @param encryptedData 加密后的Base64编码字符串
-     * @param secretKey 密钥
+     * @param secretKey     密钥
      * @return 解密后的字符串
      * @throws Exception 如果解密失败
      */
